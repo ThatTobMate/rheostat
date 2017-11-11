@@ -82,6 +82,8 @@ const propTypes = {
   snapPoints: PropTypeArrOfNumber,
   // the values
   values: PropTypeArrOfNumber,
+  // name
+  name: PropTypes.string,
 };
 
 const defaultProps = {
@@ -108,6 +110,7 @@ const defaultProps = {
   values: [
     SliderConstants.PERCENT_EMPTY,
   ],
+  name: '',
 };
 
 class Rheostat extends React.Component {
@@ -199,10 +202,15 @@ class Rheostat extends React.Component {
   }
 
   getPublicState() {
-    const { min, max } = this.props;
+    const { min, max, name } = this.props;
     const { values } = this.state;
 
-    return { max, min, values };
+    return {
+      target: {
+        name,
+        value: values && values.length && values[0]
+      }
+    }
   }
 
   // istanbul ignore next
